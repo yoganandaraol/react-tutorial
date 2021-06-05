@@ -1,0 +1,15 @@
+{
+  "name": "003-redux-intro",
+  "version": "1.0.0",
+  "description": "Redux is a state management library for javascript applications like  react, angular, vue, venilla etc...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redux": "^4.1.0"
+  }
+}
