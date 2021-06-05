@@ -6,7 +6,7 @@
 
 ### What are the other State Management Solutions?
 
-* Flux (by facebook)
+* Flux 
 * Redux
 * Mobx
 
@@ -128,7 +128,7 @@ Functional programming is one among the programming paradigms.
    `reducer - (previousState, action) => newState`
 
 <br />
-<img src="images/Redux-core-Concepts.jpg" >
+<img src="https://raw.githubusercontent.com/yoganandaraol/react-tutorial/main/003-redux-intro/images/Redux-Core-Concepts.JPG" >
 
 ---
 
