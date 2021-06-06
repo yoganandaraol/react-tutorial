@@ -164,6 +164,27 @@ Responsibilities:
 
 ---
 
+### What is middleware?
+
+* Redux middleware is the recommended way to extend Redux with custom functionality.
+* The key feature of middleware is that it is **composable**. Multiple middleware can be combined together, where each middleware requires no knowledge of what comes before or after it in the chain.
+* Middleware provides extension point between dispatching an action, and the moment it reaches reducer.
+* Middleware is used in following scenarios:
+  * Async calls
+  * logging
+  * crash reporting
+  * etc..
+  
+Code to add middleware to redux:
+
+    const reduxLogger = require('redux-logger')
+    const applyMiddleware = redux.applyMiddleware;
+    
+    const logger = reduxLogger.createLogger();
+    const store = createStore(reducer, applyMiddleware(logger));
+
+---
+
 
 
 
