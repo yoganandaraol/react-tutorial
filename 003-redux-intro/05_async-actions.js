@@ -1,68 +1,87 @@
-const redux = require('redux');
-const reduxLogger = require('redux-logger')
-
+const redux = require('redux')
 const createStore = redux.createStore;
-const combineReducers = redux.combineReducers;
-const applyMiddleware = redux.applyMiddleware;
-const logger = reduxLogger.createLogger();
+const applyMiddleware = redux.applyMiddleware
+const thunkMiddleware = require('redux-thunk').default
+const axios = require('axios');
 
-const ADD_TASK = "ADD_TASK";
-const ADD_REMINDER = "ADD_REMINDER";
+const initialState = {
+    loading: false,
+    users: [],
+    error: ''
+}
 
-function addTask(){
+const GET_USERS_REQUEST = 'GET_USERS_REQUEST'
+const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
+const GET_USERS_FAILURE = 'GET_USERS_FAILURE'
+
+const getUsersRequest = () => {
     return {
-        type: ADD_TASK,
-        info: 'First redux action'
-    };
-}
-
-function addReminder(){
-    return {
-        type: ADD_REMINDER
-    };
-}
-
-// reducer -> (previousState, action) => newUpdatedState
-
-const stateTasks = {
-    numberOfTasks: 0
-}
-
-const stateReminders = {
-    numberOfReminders: 0
-}
-
-const reducerTasks = (state = stateTasks , action) => {
-    switch(action.type){
-        case ADD_TASK: return{
-            ... state,
-            numberOfTasks: state.numberOfTasks + 1
-        }
-        default: return state
+        type: GET_USERS_REQUEST
     }
 }
 
-const reducerReminders = (state = stateReminders, action) => {
-    switch(action.type){
-        case ADD_REMINDER: return{
-            ... state,
-            numberOfReminders: state.numberOfReminders + 1
-        }
-        default: return state
+const getUsersSuccess = (users) => {
+    return {
+        type: GET_USERS_SUCCESS,
+        payload: users
     }
 }
 
-const reducer = combineReducers({
-    tasks: reducerTasks, 
-    reminders: reducerReminders})
+const getUsersFailure = (error) => {
+    return {
+        type: GET_USERS_FAILURE,
+        payload: error
+    }
+}
 
-const store = createStore(reducer, applyMiddleware(logger));
-console.log('Initial state', store.getState());
-const unsubscribe = store.subscribe(() => {});
-store.dispatch(addTask());
-store.dispatch(addTask());
-store.dispatch(addTask());
-store.dispatch(addReminder());
-store.dispatch(addReminder());
-unsubscribe();
+const reducer = (state = initialState, action) => {
+    //console.log(action.type)
+    switch(action.type) {
+        case GET_USERS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
 
+        case GET_USERS_SUCCESS:
+            return {
+                loading: false,
+                users: action.payload,
+                error: ''
+            }
+
+        case GET_USERS_FAILURE:
+            return {
+                loading: false,
+                users: [],
+                error: action.payload
+            }
+
+        default:
+            console.log('Default action triggered')
+    }
+}
+
+// Create async action creator
+// so far an action creator retuns an action
+// redux thunk brings the ability to action creator to return a function instead of an action object
+const getUsers = () => {
+    return function(dispatch) {
+        // this fucntion doesnt need to be pure.. means it can have side effects
+        dispatch(getUsersRequest())
+        axios.get('https://jsonplaceholder.typicode.com/users')
+        .then(response => {
+            // response.data is the arry of users
+            const users = response.data.map(user => user.id)
+            dispatch(getUsersSuccess(users))
+        })
+        .catch(error => {
+            // error.message is the error description
+            dispatch(getUsersFailure(error.message))
+        })
+    }
+}
+
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+store.subscribe(() => {console.log(store.getState())});
+store.dispatch(getUsers())

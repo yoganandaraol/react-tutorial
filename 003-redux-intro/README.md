@@ -185,7 +185,31 @@ Code to add middleware to redux:
 
 ---
 
+### Redux middleware and Async actions.
 
+Redux store only knows 
+* synchronously dispatch actions
+* update the state by calling the root reducer function
+* Notify the UI that something has changed.
+
+Redux reducers must never contain "side effects". A "side effect" is any change to state or behavior that can be seen outside of returning a value from a function. Some common kinds of side effects are things like:
+
+1. Logging a value to the console
+2. Saving a file
+3. Setting an async timer
+4. Making an AJAX HTTP request
+5. Modifying some state that exists outside of a function, or mutating arguments to a function
+6. Generating random numbers or unique random IDs (such as Math.random() or Date.now())
+
+
+However, any real app will need to do these kinds of things somewhere.
+
+    " Redux middleware were designed to enable writing logic that has side effects. "
+
+
+* Asynchronous Actions
+  * Async API calls to fetch data from an endpoint and use that data in your application.
+  * 
 
 
 
