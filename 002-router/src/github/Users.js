@@ -9,7 +9,6 @@ function Users() {
     useEffect(() => 
     axios.get('https://api.github.com/users').then(resp => {
         setUsers(resp.data)
-        console.log(1)
     }).catch(error => console.log(error)), [])
 
     //fetch('https://api.github.com/users').then(resp => resp.json).then(data => this.setState())

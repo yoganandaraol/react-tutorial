@@ -209,13 +209,52 @@ However, any real app will need to do these kinds of things somewhere.
 
 * Asynchronous Actions
   * Async API calls to fetch data from an endpoint and use that data in your application.
-  * 
 
 
+<hr />
+
+### What are selectors?
+
+A `selector` is simply a function that accepts Redux state as an argument and returns data that is derived from the state.
+
+A `selector` is a hook the react-redux library provides which acts as a close equivalent to `mapStateToProps`
+
+<hr />
+
+### Why should you use a selector?
+
+It is a best practice to keep your Redux store state minimal and derive data from the state as needed. Selectors help with that. They can compute derived data, allowing Redux to store the minimal possible state. Selectors are also very efficient. A selector is not recomputed unless one of its arguments changes.
+
+<hr />
+
+### What is container in redux?
+
+<hr />
 
 
+### What is `connect` in react-redux? 
+
+<hr />
 
 
+### Few alternatives in several react-redux features?
+* We can replace **redux** with **react context api**
+* We can also replace `react-redux connect` with `hooks` to **dispatch actions**
+  
+
+<hr />
+
+### `Redux` vs `Context API`: Conclusions
+
+Context API: 
+
+    Resourceful and ideal for small applications where state changes are minimal.
+
+Redux: 
+
+    Perfect for larger applications where there are high-frequency state updates.
+
+<hr />
 
 
 
