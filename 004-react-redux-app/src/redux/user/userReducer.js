@@ -2,12 +2,7 @@ import { GET_USERS_FAILURE, GET_USERS_REQUEST, GET_USERS_SUCCESS } from "./userT
 
 const initialState = {
     loading: false,
-    users: [
-        {name: 'Yoga', age: 37},
-        {name: 'Swetha', age: 27},
-        {name: 'Nanya', age: 6},
-        {name: 'Reshma', age: 4},
-    ],
+    users: [],
     error: ''
 }
 
@@ -18,10 +13,10 @@ const userReducer = (state=initialState, action) => {
             loading: true
         }
 
-        case GET_USERS_SUCCESS: console.log('dispatcher called'); return {
+        case GET_USERS_SUCCESS: return {
             ...state,
             loading: false,
-            users: state.users,
+            users: action.payload,
             error: ''
         }
 
