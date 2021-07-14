@@ -7,7 +7,7 @@ const ADD_TASK = "ADD_TASK";
 function addTask(){
     return {
         type: ADD_TASK,
-        info: 'First redux action'
+        payload: 'First redux action'
     };
 }
 
@@ -29,6 +29,7 @@ const reducer = (state = initialState , action) => {
 }
 
 const store = createStore(reducer);
+
 console.log('Initial state', store.getState());
 const unsubscribe = store.subscribe(() => console.log('Updated state', store.getState()));
 store.dispatch(addTask());

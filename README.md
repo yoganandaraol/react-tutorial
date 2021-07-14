@@ -55,7 +55,7 @@ Not fits:
 
 ### What is webpack?
 
-* Webpack is a module bundler for javascript, so we can write our javascript code into multiple filed and have webpack combines in to a bundle.
+* Webpack is a module bundler for javascript, so we can write our javascript code into multiple files and have webpack combines in to a bundle.
 
 ---
 
